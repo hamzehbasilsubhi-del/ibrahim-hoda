@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr" class="scroll-smooth bg-black">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <!-- Title for Browser & Social Sharing -->
     <title>Wedding Invitation - Ibrahim & Hoda</title>
@@ -69,7 +69,14 @@
             font-family: 'Montserrat', sans-serif;
             color: #556B2F;
             overflow-x: hidden;
-            font-size: 15px; /* Increased base font size */
+            font-size: 15px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* Cross-Device Dynamic Height Support */
+        .app-height-fix {
+            min-height: 100vh;
+            min-height: 100dvh;
         }
 
         /* Image Sharpness & HD Rendering Fixes */
@@ -200,7 +207,7 @@
         }
     </style>
 </head>
-<body class="bg-black text-olive antialiased flex justify-center items-center min-h-screen sm:py-6 font-montserrat">
+<body class="bg-black text-olive antialiased flex justify-center items-center app-height-fix font-montserrat">
 
     <!-- BACKGROUND AUDIO -->
     <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline>
@@ -222,7 +229,7 @@
     </div>
 
     <!-- Mobile Screen Frame Container (Max Width 430px) -->
-    <div class="w-full max-w-[430px] bg-[#eae3dc] sm:rounded-[40px] shadow-2xl overflow-hidden relative flex flex-col my-auto border-0 sm:border border-olive/20">
+    <div class="w-full max-w-[430px] bg-[#eae3dc] sm:rounded-[40px] shadow-2xl overflow-hidden relative flex flex-col my-auto border-0 sm:border border-olive/20 pb-[env(safe-area-inset-bottom)]">
 
         <!-- HERO BACKGROUND VIDEO (9:16 Aspect Ratio) WITH QURANIC VERSE & TYPING NAMES -->
         <section class="relative w-full aspect-[9/16] overflow-hidden bg-black flex items-center justify-center">
