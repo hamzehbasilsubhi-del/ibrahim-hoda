@@ -341,34 +341,14 @@
                 </div>
 
                 <div class="space-y-2 text-sm text-olive font-montserrat pt-2">
-                    <!-- Hotel Icon Without Border, Matched to Map Width -->
+                    <!-- Hotel Icon Without Border -->
                     <div class="w-full flex items-center justify-center mb-2 px-1">
                         <img src="images/hotel-icon.png" alt="Hotel Icon" class="w-full max-w-[280px] h-32 object-cover rounded-xl shadow-md opacity-95">
                     </div>
 
                     <!-- Enlarged Hotel Name Font Size -->
                     <p class="font-bold text-xl text-olive tracking-wide pt-1">Fairmont Palm Dubai</p>
-
-                    <!-- Embedded Google Maps Map Below Hotel Name -->
-                    <div class="w-full h-36 rounded-xl overflow-hidden shadow-md my-3 border border-olive/30">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.619374026368!2d55.1396!3d25.1119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f1412674e2d41%3A0x6b77c5cd6b500e16!2sFairmont%20The%20Palm!5e0!3m2!1sen!2svae!4v1640000000000!5m2!1sen!2svae" 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-
                     <p class="text-sm text-olive/80 pt-1 font-medium">Sunday, 22 . 11 . 2026</p>
-                </div>
-
-                <div class="pt-3 flex flex-col gap-2.5 max-w-[220px] mx-auto">
-                    <a href="https://maps.google.com/?q=Fairmont+Palm+Dubai" target="_blank" class="w-full py-3 px-6 bg-olive hover:bg-olive/90 text-white rounded-full text-center text-sm font-montserrat font-medium uppercase transition duration-300 shadow-sm">
-                        Location (Map)
-                    </a>
                 </div>
             </div>
         </section>
@@ -493,6 +473,30 @@
             </div>
         </section>
 
+        <!-- MAP LOCATION SECTION (MOVED HERE BELOW RSVP) -->
+        <section class="pb-10 pt-2 px-6 bg-[#eae3dc] text-center reveal">
+            <div class="max-w-xs mx-auto space-y-4">
+                <!-- Embedded Google Maps Map -->
+                <div class="w-full h-36 rounded-xl overflow-hidden shadow-md my-3 border border-olive/30">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.619374026368!2d55.1396!3d25.1119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f1412674e2d41%3A0x6b77c5cd6b500e16!2sFairmont%20The%20Palm!5e0!3m2!1sen!2svae!4v1640000000000!5m2!1sen!2svae" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <div>
+                    <a href="https://maps.google.com/?q=Fairmont+Palm+Dubai" target="_blank" class="w-full py-3 px-6 bg-olive hover:bg-olive/90 text-white rounded-full text-center text-sm font-montserrat font-medium uppercase transition duration-300 shadow-sm inline-block">
+                        Location (Map)
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- CLOUDS & FINAL CLOSING SECTION -->
         <section class="relative w-full py-20 px-6 text-center bg-[#eae3dc] flex flex-col items-center justify-center overflow-hidden reveal sm:rounded-b-[40px]">
             <img src="images/clouds.png" alt="Clouds" class="absolute inset-0 w-full h-full object-cover opacity-90 pointer-events-none z-0">
@@ -554,7 +558,6 @@
         function playAudio() {
             if (isAudioPlaying) return;
 
-            // Initialize AudioContext if suspended
             if (!audioCtx) {
                 const AudioContextClass = window.AudioContext || window.webkitAudioContext;
                 if (AudioContextClass) {
