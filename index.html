@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth bg-black">
+<html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <!-- Title for Browser & Social Sharing -->
-    <title>Wedding Invitation - Ibrahim & Hoda</title>
+    <title>Wedding Invitation - Hoda & Ibrahim</title>
     
     <!-- Open Graph Meta Tags for WhatsApp & Social Media Preview -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Wedding Invitation - Ibrahim & Hoda">
+    <meta property="og:title" content="Wedding Invitation - Hoda & Ibrahim">
     <meta property="og:description" content="We are delighted to invite you to celebrate our wedding day with us.">
     <meta property="og:image" content="images/cover-poster.jpg">
 
@@ -64,13 +64,16 @@
             touch-action: manipulation;
         }
 
+        /* Force correct background globally to prevent black flashes */
         html, body {
-            background-color: #000000;
+            background-color: #eae3dc !important;
             font-family: 'Montserrat', sans-serif;
             color: #556B2F;
             overflow-x: hidden;
             font-size: 15px;
             -webkit-text-size-adjust: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         /* Cross-Device Dynamic Height Support */
@@ -207,7 +210,7 @@
         }
     </style>
 </head>
-<body class="bg-black text-olive antialiased flex justify-center items-center app-height-fix font-montserrat">
+<body class="bg-[#eae3dc] text-olive antialiased flex justify-center items-center app-height-fix font-montserrat">
 
     <!-- BACKGROUND AUDIO -->
     <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline>
@@ -256,7 +259,7 @@
                     <div class="py-1 flex flex-col items-center justify-center space-y-1">
                         <div class="overflow-hidden py-0.5">
                             <h1 id="name1" class="text-5xl font-normal font-sloop text-white drop-shadow-lg typing-container typing-name-1">
-                                Ibrahim
+                                Hoda
                             </h1>
                         </div>
                         <div>
@@ -264,7 +267,7 @@
                         </div>
                         <div class="overflow-hidden py-0.5">
                             <h1 id="name2" class="text-5xl font-normal font-sloop text-white drop-shadow-lg typing-container typing-name-2">
-                                Hoda
+                                Ibrahim
                             </h1>
                         </div>
                     </div>
@@ -281,18 +284,18 @@
 
             <!-- Romantic Message Quote -->
             <p class="text-sm font-montserrat text-olive/90 italic leading-relaxed max-w-[290px] mx-auto mb-4 font-normal">
-                "Two lives, two hearts, joined in love forever. We invite you to be part of our story as we exchange our vows"
+                "Two lives, two hearts, join in love forever"
             </p>
 
             <!-- Families Invitation Text -->
             <p class="text-sm text-olive font-medium font-montserrat leading-relaxed max-w-[300px] mx-auto opacity-95 uppercase tracking-widest pt-2">
-                Ansari and Eloraby families, we cordially invite you to celebrate our wedding
+                Ansari and Eloraby families, cordially invite you to celebrate the wedding of
             </p>
 
             <!-- Added Stylized Couple Names Below Families Text -->
             <div class="mt-4">
                 <h2 class="text-3xl font-sloop text-olive font-normal">
-                    Ibrahim & Hoda
+                    Hoda & Ibrahim
                 </h2>
             </div>
         </section>
@@ -304,7 +307,6 @@
                     <p class="text-base">On Sunday</p>
                     <p class="font-bold text-lg text-olive tracking-wider">22 . 11 . 2026</p>
                     <p class="text-base">7:00 PM</p>
-                    <p class="pt-2 font-medium text-olive text-sm">Your presence will make our day complete</p>
                 </div>
             </div>
         </section>
@@ -360,10 +362,6 @@
                 <div class="pt-3 flex flex-col gap-2.5 max-w-[220px] mx-auto">
                     <a href="https://maps.google.com/?q=Fairmont+Palm+Dubai" target="_blank" class="w-full py-3 px-6 bg-olive hover:bg-olive/90 text-white rounded-full text-center text-sm font-montserrat font-medium uppercase transition duration-300 shadow-sm">
                         Location (Map)
-                    </a>
-                    <a id="addToCalendar" href="#" class="w-full py-2.5 px-4 border border-olive/60 hover:bg-olive/10 text-olive rounded-full text-center text-sm font-medium font-montserrat transition flex items-center justify-center gap-1.5">
-                        <i data-lucide="calendar-plus" class="w-4 h-4"></i>
-                        Add to Calendar
                     </a>
                 </div>
             </div>
@@ -686,12 +684,6 @@
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
-
-        // Calendar Direct Link (November 22, 2026)
-        const calTitle = encodeURIComponent("Wedding Celebration: Ibrahim & Hoda");
-        const calDetails = encodeURIComponent("We are delighted to invite you to celebrate our wedding at Fairmont Palm Dubai.");
-        const calLocation = encodeURIComponent("Fairmont Palm Dubai");
-        document.getElementById('addToCalendar').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&dates=20261122T150000Z/20261122T190000Z&details=${calDetails}&location=${calLocation}`;
     </script>
 </body>
 </html>
