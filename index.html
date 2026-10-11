@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth">
+<html lang="en" dir="ltr" class="scroll-smooth" style="background-color: #eae3dc !important;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- Chrome, Firefox OS and Opera theme color for mobile bar -->
+    <meta name="theme-color" content="#eae3dc">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
     <!-- Title for Browser & Social Sharing -->
     <title>Wedding Invitation - Hoda & Ibrahim</title>
@@ -64,7 +68,7 @@
             touch-action: manipulation;
         }
 
-        /* Force correct background globally to prevent black flashes */
+        /* Force correct background globally to prevent black screens/flashes */
         html, body {
             background-color: #eae3dc !important;
             font-family: 'Montserrat', sans-serif;
@@ -74,6 +78,8 @@
             -webkit-text-size-adjust: 100%;
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            min-height: 100dvh;
         }
 
         /* Cross-Device Dynamic Height Support */
@@ -108,7 +114,7 @@
         #videoCover {
             transition: opacity 0.5s ease-out, visibility 0.5s;
             will-change: opacity, visibility;
-            background-color: #000000;
+            background-color: #eae3dc !important;
         }
         #videoCover.fade-out {
             opacity: 0;
@@ -210,15 +216,15 @@
         }
     </style>
 </head>
-<body class="bg-[#eae3dc] text-olive antialiased flex justify-center items-center app-height-fix font-montserrat">
+<body class="bg-[#eae3dc] text-olive antialiased flex justify-center items-center app-height-fix font-montserrat" style="background-color: #eae3dc !important;">
 
-    <!-- BACKGROUND AUDIO -->
-    <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline>
+    <!-- BACKGROUND AUDIO WITH EXPLICIT AUDIO ATTRIBUTES -->
+    <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline x-webkit-airplay="allow">
         <source src="images/music.mp3" type="audio/mpeg">
     </audio>
 
     <!-- FULLSCREEN COVER OVERLAY (STATIC POSTER + VIDEO) -->
-    <div id="videoCover" class="fixed inset-0 z-50 flex items-center justify-center bg-black overflow-hidden select-none">
+    <div id="videoCover" class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden select-none" style="background-color: #eae3dc !important;">
         <!-- 1. INSTANT STATIC POSTER -->
         <img id="posterImage" src="images/cover-poster.jpg" alt="Invitation Cover" class="absolute inset-0 w-full h-full object-cover object-center z-10 transition-opacity duration-300">
 
@@ -232,7 +238,7 @@
     </div>
 
     <!-- Mobile Screen Frame Container (Max Width 430px) -->
-    <div class="w-full max-w-[430px] bg-[#eae3dc] sm:rounded-[40px] shadow-2xl overflow-hidden relative flex flex-col my-auto border-0 sm:border border-olive/20 pb-[env(safe-area-inset-bottom)]">
+    <div class="w-full max-w-[430px] bg-[#eae3dc] sm:rounded-[40px] shadow-2xl overflow-hidden relative flex flex-col my-auto border-0 sm:border border-olive/20 pb-[env(safe-area-inset-bottom)]" style="background-color: #eae3dc !important;">
 
         <!-- HERO BACKGROUND VIDEO (9:16 Aspect Ratio) WITH QURANIC VERSE & TYPING NAMES -->
         <section class="relative w-full aspect-[9/16] overflow-hidden bg-black flex items-center justify-center">
@@ -524,7 +530,7 @@
         const ampSign = document.getElementById('ampSign');
         const name2 = document.getElementById('name2');
 
-        let audioContext = null;
+        let audioCtx = null;
         let isAudioPlaying = false;
 
         // Guest Count Stepper Logic
@@ -544,29 +550,31 @@
             }
         }
 
-        // Cross-browser Audio Unlocker using Web Audio API Context
-        function startAudio() {
+        // Robust Cross-browser Audio Player
+        function playAudio() {
             if (isAudioPlaying) return;
 
-            if (!audioContext) {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                if (AudioCtx) {
-                    audioContext = new AudioCtx();
+            // Initialize AudioContext if suspended
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
                 }
             }
-
-            if (audioContext && audioContext.state === 'suspended') {
-                audioContext.resume();
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
             }
 
             if (bgMusic) {
                 bgMusic.muted = false;
-                const playPromise = bgMusic.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
+                bgMusic.volume = 1.0;
+                
+                const promise = bgMusic.play();
+                if (promise !== undefined) {
+                    promise.then(() => {
                         isAudioPlaying = true;
                     }).catch(err => {
-                        console.log("Autoplay blocked, waiting for next touch:", err);
+                        console.log("Audio playback waiting for gesture: ", err);
                     });
                 }
             }
@@ -577,14 +585,7 @@
             if (bgMusic) bgMusic.load();
             if (heroVideo) {
                 heroVideo.load();
-                const playPromise = heroVideo.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => {
-                        document.addEventListener('touchstart', () => {
-                            heroVideo.play();
-                        }, { once: true });
-                    });
-                }
+                heroVideo.play().catch(() => {});
             }
         });
 
@@ -592,7 +593,7 @@
             if (videoCover) {
                 videoCover.classList.add('fade-out');
             }
-            // Trigger Hero Animations as soon as cover dismisses
+            // Trigger Hero Animations
             if (heroVerse) heroVerse.classList.add('active');
             if (heroSubtitle) heroSubtitle.classList.add('active');
             if (name1) name1.classList.add('active');
@@ -603,7 +604,7 @@
         let isInteractionHandled = false;
 
         function handleUserInteraction(e) {
-            startAudio();
+            playAudio();
 
             if (isInteractionHandled) return;
             isInteractionHandled = true;
@@ -633,24 +634,14 @@
         
         interactionEvents.forEach(eventType => {
             sealClickArea.addEventListener(eventType, handleUserInteraction, { passive: true });
+            document.addEventListener(eventType, playAudio, { passive: true });
         });
-
-        const globalUnlock = () => {
-            startAudio();
-            if (isAudioPlaying) {
-                interactionEvents.forEach(evt => document.removeEventListener(evt, globalUnlock));
-                document.removeEventListener('scroll', globalUnlock);
-            }
-        };
-
-        interactionEvents.forEach(evt => document.addEventListener(evt, globalUnlock, { passive: true }));
-        document.addEventListener('scroll', globalUnlock, { passive: true });
 
         if (coverVideo) {
             coverVideo.addEventListener('ended', dismissCover);
         }
 
-        // Scroll Reveal Observer for other sections
+        // Scroll Reveal Observer
         const revealElements = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
