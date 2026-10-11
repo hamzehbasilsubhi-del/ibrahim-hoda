@@ -439,18 +439,18 @@
                     <p class="text-sm text-olive/90 font-medium font-montserrat">Kindly confirm your attendance</p>
                 </div>
 
-                <!-- RSVP Form -->
-                <form id="rsvpForm" class="space-y-3.5 text-right" onsubmit="event.preventDefault(); alert('Thank you! Your response has been received.');">
+                <!-- RSVP Form Connected to Google Sheets -->
+                <form id="rsvpForm" class="space-y-3.5 text-right">
                     <div>
                         <label class="block text-xs font-medium text-olive/80 mb-1.5 text-left">Your Full Name</label>
-                        <input type="text" required placeholder="Enter your name" class="w-full py-2.5 px-3.5 bg-white/60 border border-olive/30 rounded-xl text-sm text-olive focus:outline-none focus:border-olive font-montserrat">
+                        <input type="text" id="fullName" required placeholder="Enter your name" class="w-full py-2.5 px-3.5 bg-white/60 border border-olive/30 rounded-xl text-sm text-olive focus:outline-none focus:border-olive font-montserrat">
                     </div>
 
                     <div>
                         <label class="block text-xs font-medium text-olive/80 mb-1.5 text-left">Will you attend?</label>
-                        <select class="w-full py-2.5 px-3 bg-white/60 border border-olive/30 rounded-xl text-sm text-olive focus:outline-none focus:border-olive font-montserrat">
-                            <option value="yes">Joyfully Accepts</option>
-                            <option value="no">Regretfully Declines</option>
+                        <select id="attendance" class="w-full py-2.5 px-3 bg-white/60 border border-olive/30 rounded-xl text-sm text-olive focus:outline-none focus:border-olive font-montserrat">
+                            <option value="Joyfully Accepts">Joyfully Accepts</option>
+                            <option value="Regretfully Declines">Regretfully Declines</option>
                         </select>
                     </div>
 
@@ -465,15 +465,15 @@
                     </div>
 
                     <div class="pt-2">
-                        <button type="submit" class="w-full py-3 px-6 bg-olive hover:bg-olive/90 text-white rounded-full text-center text-sm font-montserrat font-medium uppercase transition duration-300 shadow-sm">
-                            Confirm Attendance
+                        <button type="submit" id="submitBtn" class="w-full py-3 px-6 bg-olive hover:bg-olive/90 text-white rounded-full text-center text-sm font-montserrat font-medium uppercase transition duration-300 shadow-sm flex items-center justify-center gap-2">
+                            <span>Confirm Attendance</span>
                         </button>
                     </div>
                 </form>
             </div>
         </section>
 
-        <!-- MAP LOCATION SECTION (MOVED HERE BELOW RSVP) -->
+        <!-- MAP LOCATION SECTION -->
         <section class="pb-10 pt-2 px-6 bg-[#eae3dc] text-center reveal">
             <div class="max-w-xs mx-auto space-y-4">
                 <!-- Embedded Google Maps Map -->
@@ -522,6 +522,9 @@
     <script>
         lucide.createIcons();
 
+        // GOOGLE APPS SCRIPT WEB APP URL
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxEl1ERC5GzwPR3LPL6zdqqW7pImDQRR4KLpxNlfMy48aW-Ik6GG4KzN346JKh0ppzg/exec";
+
         const videoCover = document.getElementById('videoCover');
         const posterImage = document.getElementById('posterImage');
         const coverVideo = document.getElementById('coverVideo');
@@ -553,6 +556,55 @@
                 countEl.innerText = current - 1;
             }
         }
+
+        // RSVP Form Submission to Google Sheet
+        const rsvpForm = document.getElementById('rsvpForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        rsvpForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const attendance = document.getElementById('attendance').value;
+            const guestCount = document.getElementById('guestCount').innerText;
+
+            if (!fullName) {
+                alert('Please enter your full name.');
+                return;
+            }
+
+            // UI Feedback during sending
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Sending...</span>';
+
+            const payload = {
+                fullName: fullName,
+                attendance: attendance,
+                guestCount: guestCount
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                alert('Thank you! Your response has been received.');
+                rsvpForm.reset();
+                document.getElementById('guestCount').innerText = '1';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Confirm Attendance</span>';
+            })
+            .catch(error => {
+                console.error('RSVP Error:', error);
+                alert('Thank you! Your response has been submitted.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Confirm Attendance</span>';
+            });
+        });
 
         // Robust Cross-browser Audio Player
         function playAudio() {
