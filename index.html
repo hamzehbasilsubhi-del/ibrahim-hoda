@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth bg-black">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Title for Browser & Social Sharing -->
+    <title>Wedding Invitation - Ibrahim & Hoda</title>
+    
+    <!-- Open Graph Meta Tags for WhatsApp & Social Media Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Wedding Invitation - Ibrahim & Hoda">
+    <meta property="og:description" content="We are delighted to invite you to celebrate our wedding day with us.">
+    <meta property="og:image" content="images/cover-poster.jpg">
+
+    <!-- Preload Critical Video & Audio Assets -->
+    <link rel="preload" href="images/hero-bg.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="images/cover.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="images/cover-poster.jpg" as="image">
+    <link rel="preload" href="images/music.mp3" as="audio" type="audio/mpeg">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Palette Setup -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ivory: '#eae3dc',
+                        vintageBg: '#eae3dc',
+                        olive: {
+                            DEFAULT: '#556B2F',
+                            50: '#f4f6f1',
+                            100: '#e5ebd9',
+                            600: '#556B2F',
+                            700: '#445625',
+                            800: '#33411c',
+                        },
+                        bronze: '#556B2F',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        sloop: ['"Great Vibes"', 'cursive'],
+                        amiri: ['"Amiri"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        html, body {
+            background-color: #000000;
+            font-family: 'Montserrat', sans-serif;
+            color: #556B2F;
+            overflow-x: hidden;
+            font-size: 15px; /* Increased base font size */
+        }
+
+        /* Image Sharpness & HD Rendering Fixes */
+        img, video {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        
+        .font-montserrat, body, h1, h2, h3, h4, p, span, div, a {
+            letter-spacing: normal !important;
+        }
+
+        .font-sloop {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .font-amiri {
+            font-family: 'Amiri', serif;
+        }
+
+        /* Video Cover Overlay Transition */
+        #videoCover {
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+            will-change: opacity, visibility;
+            background-color: #000000;
+        }
+        #videoCover.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none !important;
+        }
+
+        /* Scroll Reveal Animation Styles */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Subtitle Fade Animation */
+        .subtitle-reveal {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 1.2s ease 0.2s, transform 1.2s ease 0.2s;
+        }
+        .subtitle-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typing Effect Styles (Slow & Smooth) */
+        .typing-container {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            opacity: 0;
+        }
+
+        .typing-container.active {
+            opacity: 1;
+        }
+
+        .typing-name-1 {
+            animation: none;
+        }
+        .typing-name-1.active {
+            animation: typing 2.2s steps(15, end) 0.5s forwards;
+        }
+
+        .typing-amp {
+            opacity: 0;
+        }
+        .typing-amp.active {
+            animation: fadeInScale 1s ease 2.7s forwards;
+        }
+
+        .typing-name-2 {
+            animation: none;
+        }
+        .typing-name-2.active {
+            animation: typing 2.0s steps(12, end) 3.8s forwards;
+        }
+
+        @keyframes typing {
+            from { width: 0; opacity: 1; }
+            to { width: 100%; opacity: 1; }
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .delay-circle-1 { transition-delay: 0.05s; }
+        .delay-circle-2 { transition-delay: 0.15s; }
+        .delay-circle-3 { transition-delay: 0.25s; }
+        .delay-circle-4 { transition-delay: 0.35s; }
+
+        .circle-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .circle-bg {
+            fill: none;
+            stroke: #dcd6cd;
+            stroke-width: 1.2;
+        }
+        .circle-progress {
+            fill: none;
+            stroke: #556B2F;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 0.8s ease;
+        }
+    </style>
+</head>
+<body class="bg-black text-olive antialiased flex justify-center items-center min-h-screen sm:py-6 font-montserrat">
+
+    <!-- BACKGROUND AUDIO -->
+    <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline>
+        <source src="images/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- FULLSCREEN COVER OVERLAY (STATIC POSTER + VIDEO) -->
+    <div id="videoCover" class="fixed inset-0 z-50 flex items-center justify-center bg-black overflow-hidden select-none">
+        <!-- 1. INSTANT STATIC POSTER -->
+        <img id="posterImage" src="images/cover-poster.jpg" alt="Invitation Cover" class="absolute inset-0 w-full h-full object-cover object-center z-10 transition-opacity duration-300">
+
+        <!-- 2. VIDEO PLAYER -->
+        <video id="coverVideo" playsinline webkit-playsinline x5-playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0 hidden">
+            <source src="images/cover.mp4" type="video/mp4">
+        </video>
+
+        <!-- 3. INVISIBLE FULL-SCREEN TAP LAYER -->
+        <div id="sealClickArea" class="absolute inset-0 z-20 w-full h-full cursor-pointer bg-transparent"></div>
+    </div>
+
+    <!-- Mobile Screen Frame Container (Max Width 430px) -->
+    <div class="w-full max-w-[430px] bg-[#eae3dc] sm:rounded-[40px] shadow-2xl overflow-hidden relative flex flex-col my-auto border-0 sm:border border-olive/20">
+
+        <!-- HERO BACKGROUND VIDEO (9:16 Aspect Ratio) WITH QURANIC VERSE & TYPING NAMES -->
+        <section class="relative w-full aspect-[9/16] overflow-hidden bg-black flex items-center justify-center">
+            <video id="heroVideo" autoplay loop muted playsinline webkit-playsinline x5-playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none">
+                <source src="images/hero-bg.mp4" type="video/mp4">
+            </video>
+            
+            <!-- Dark Gradient Layer for Text Legibility -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-[#eae3dc] z-10 pointer-events-none"></div>
+
+            <!-- Animated Overlay Banner Content -->
+            <div class="relative z-20 text-center px-5 flex flex-col items-center justify-center space-y-3 drop-shadow-md" dir="rtl">
+                <!-- Quranic Verse -->
+                <div id="heroVerse" class="subtitle-reveal text-white/95 font-amiri text-sm leading-loose px-2 max-w-[340px] text-center drop-shadow">
+                    <p class="text-base font-bold text-white mb-2.5 tracking-wide">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</p>
+                    <p class="mb-2 text-sm leading-relaxed">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ ﴿٢١﴾</p>
+                    <p class="text-xs text-white/80">سورة الروم</p>
+                </div>
+
+                <div dir="ltr" class="w-full flex flex-col items-center justify-center space-y-2 pt-1">
+                    <p id="heroSubtitle" class="text-xs uppercase tracking-[0.2em] font-medium text-white/90 drop-shadow subtitle-reveal">
+                        The Wedding Celebration of
+                    </p>
+                    <div class="py-1 flex flex-col items-center justify-center space-y-1">
+                        <div class="overflow-hidden py-0.5">
+                            <h1 id="name1" class="text-5xl font-normal font-sloop text-white drop-shadow-lg typing-container typing-name-1">
+                                Ibrahim
+                            </h1>
+                        </div>
+                        <div>
+                            <span id="ampSign" class="text-white/80 font-light text-3xl my-0.5 inline-block typing-amp">&</span>
+                        </div>
+                        <div class="overflow-hidden py-0.5">
+                            <h1 id="name2" class="text-5xl font-normal font-sloop text-white drop-shadow-lg typing-container typing-name-2">
+                                Hoda
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BANNER TEXT & SUBTITLE SECTION WITH MUCH LARGER TOP ORNAMENT & LOVE QUOTE -->
+        <section class="relative z-10 w-full text-center pt-8 pb-5 px-6 bg-[#eae3dc]">
+            <!-- Significantly Enlarged Top Section Ornament Image -->
+            <div class="flex items-center justify-center mb-4">
+                <img src="images/top-ornament.png" alt="Ornament" class="w-48 h-auto object-contain opacity-95">
+            </div>
+
+            <!-- Romantic Message Quote -->
+            <p class="text-sm font-montserrat text-olive/90 italic leading-relaxed max-w-[290px] mx-auto mb-4 font-normal">
+                "Two lives, two hearts, joined in love forever. We invite you to be part of our story as we exchange our vows"
+            </p>
+
+            <!-- Families Invitation Text -->
+            <p class="text-sm text-olive font-medium font-montserrat leading-relaxed max-w-[300px] mx-auto opacity-95 uppercase tracking-widest pt-2">
+                Ansari and Eloraby families, we cordially invite you to celebrate our wedding
+            </p>
+
+            <!-- Added Stylized Couple Names Below Families Text -->
+            <div class="mt-4">
+                <h2 class="text-3xl font-sloop text-olive font-normal">
+                    Ibrahim & Hoda
+                </h2>
+            </div>
+        </section>
+
+        <!-- INVITATION CARD SECTION -->
+        <section class="pb-12 pt-2 px-8 text-center bg-[#eae3dc] relative flex flex-col items-center justify-center reveal z-20">
+            <div class="space-y-6 max-w-xs mx-auto">
+                <div class="space-y-2.5 text-sm font-montserrat text-olive/85 leading-relaxed font-normal">
+                    <p class="text-base">On Sunday</p>
+                    <p class="font-bold text-lg text-olive tracking-wider">22 . 11 . 2026</p>
+                    <p class="text-base">7:00 PM</p>
+                    <p class="pt-2 font-medium text-olive text-sm">Your presence will make our day complete</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EVENT DETAILS SECTION -->
+        <section id="details" class="py-14 px-6 bg-[#eae3dc] text-center reveal">
+            <div class="max-w-xs mx-auto space-y-6">
+                <!-- Details Ornament Image -->
+                <div class="flex items-center justify-center mb-3">
+                    <img src="images/details-ornament.png" alt="Details Ornament" class="w-48 h-auto object-contain opacity-95">
+                </div>
+
+                <div class="space-y-2">
+                    <p class="text-sm text-olive/80 font-medium font-montserrat uppercase tracking-wider">Event Details</p>
+                    <div class="flex items-center justify-center pt-1">
+                        <img src="images/divider.png" alt="Divider" class="w-32 h-auto object-contain brightness-90 contrast-125">
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <p class="text-sm text-olive/80 font-medium font-montserrat uppercase">Wedding Reception & Guest Arrival</p>
+                </div>
+
+                <div>
+                    <p class="text-2xl font-bold font-montserrat text-olive">07:00 PM</p>
+                </div>
+
+                <div class="space-y-2 text-sm text-olive font-montserrat pt-2">
+                    <!-- Hotel Icon Without Border, Matched to Map Width -->
+                    <div class="w-full flex items-center justify-center mb-2 px-1">
+                        <img src="images/hotel-icon.png" alt="Hotel Icon" class="w-full max-w-[280px] h-32 object-cover rounded-xl shadow-md opacity-95">
+                    </div>
+
+                    <!-- Enlarged Hotel Name Font Size -->
+                    <p class="font-bold text-xl text-olive tracking-wide pt-1">Fairmont Palm Dubai</p>
+
+                    <!-- Embedded Google Maps Map Below Hotel Name -->
+                    <div class="w-full h-36 rounded-xl overflow-hidden shadow-md my-3 border border-olive/30">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.619374026368!2d55.1396!3d25.1119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f1412674e2d41%3A0x6b77c5cd6b500e16!2sFairmont%20The%20Palm!5e0!3m2!1sen!2svae!4v1640000000000!5m2!1sen!2svae" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <p class="text-sm text-olive/80 pt-1 font-medium">Sunday, 22 . 11 . 2026</p>
+                </div>
+
+                <div class="pt-3 flex flex-col gap-2.5 max-w-[220px] mx-auto">
+                    <a href="https://maps.google.com/?q=Fairmont+Palm+Dubai" target="_blank" class="w-full py-3 px-6 bg-olive hover:bg-olive/90 text-white rounded-full text-center text-sm font-montserrat font-medium uppercase transition duration-300 shadow-sm">
+                        Location (Map)
+                    </a>
+                    <a id="addToCalendar" href="#" class="w-full py-2.5 px-4 border border-olive/60 hover:bg-olive/10 text-olive rounded-full text-center text-sm font-medium font-montserrat transition flex items-center justify-center gap-1.5">
+                        <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+                        Add to Calendar
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- COUNTDOWN TIMER SECTION -->
+        <section class="pt-6 pb-4 px-0 text-center bg-[#eae3dc] flex flex-col items-center justify-center">
+            <!-- Countdown Ornament Image -->
+            <div class="flex items-center justify-center mb-3 reveal">
+                <img src="images/countdown-ornament.png" alt="Countdown Ornament" class="w-48 h-auto object-contain opacity-95">
+            </div>
+
+            <div class="reveal space-y-2 mb-8 px-4">
+                <p class="text-sm text-olive/80 font-medium font-montserrat uppercase tracking-wider">Countdown to Our Big Day</p>
+                <div class="flex items-center justify-center pt-1 px-4">
+                    <img src="images/divider.png" alt="Divider" class="w-32 h-auto object-contain brightness-90 contrast-125">
+                </div>
+            </div>
+
+            <div id="countdown" class="grid grid-cols-4 gap-2 sm:gap-3 max-w-[360px] mx-auto px-4">
+                <div class="flex flex-col items-center reveal delay-circle-1">
+                    <div class="circle-container flex items-center justify-center">
+                        <svg class="w-full h-full" viewBox="0 0 80 80">
+                            <circle class="circle-bg" cx="40" cy="40" r="36" />
+                            <circle class="circle-progress" cx="40" cy="40" r="36" stroke-dasharray="226.19" stroke-dashoffset="180" />
+                        </svg>
+                        <span id="days" class="absolute text-lg font-montserrat text-olive font-bold">00</span>
+                    </div>
+                    <span class="text-sm text-olive/90 font-medium font-montserrat mt-3">Days</span>
+                </div>
+
+                <div class="flex flex-col items-center reveal delay-circle-2">
+                    <div class="circle-container flex items-center justify-center">
+                        <svg class="w-full h-full" viewBox="0 0 80 80">
+                            <circle class="circle-bg" cx="40" cy="40" r="36" />
+                            <circle class="circle-progress" cx="40" cy="40" r="36" stroke-dasharray="226.19" stroke-dashoffset="140" />
+                        </svg>
+                        <span id="hours" class="absolute text-lg font-montserrat text-olive font-bold">00</span>
+                    </div>
+                    <span class="text-sm text-olive/90 font-medium font-montserrat mt-3">Hours</span>
+                </div>
+
+                <div class="flex flex-col items-center reveal delay-circle-3">
+                    <div class="circle-container flex items-center justify-center">
+                        <svg class="w-full h-full" viewBox="0 0 80 80">
+                            <circle class="circle-bg" cx="40" cy="40" r="36" />
+                            <circle class="circle-progress" cx="40" cy="40" r="36" stroke-dasharray="226.19" stroke-dashoffset="110" />
+                        </svg>
+                        <span id="minutes" class="absolute text-lg font-montserrat text-olive font-bold">00</span>
+                    </div>
+                    <span class="text-sm text-olive/90 font-medium font-montserrat mt-3">Mins</span>
+                </div>
+
+                <div class="flex flex-col items-center reveal delay-circle-4">
+                    <div class="circle-container flex items-center justify-center">
+                        <svg class="w-full h-full" viewBox="0 0 80 80">
+                            <circle class="circle-bg" cx="40" cy="40" r="36" />
+                            <circle class="circle-progress" cx="40" cy="40" r="36" stroke-dasharray="226.19" stroke-dashoffset="70" />
+                        </svg>
+                        <span id="seconds" class="absolute text-lg font-montserrat text-olive font-bold">00</span>
+                    </div>
+                    <span class="text-sm text-olive/90 font-medium font-montserrat mt-3">Secs</span>
+                </div>
+            </div>
+
+            <p class="text-sm text-olive/80 font-medium font-montserrat uppercase mt-8 reveal px-4 tracking-widest">22 . 11 . 2026</p>
+
+            <div class="w-full mt-6 reveal leading-none">
+                <img src="images/drape.png" alt="Crystal Drape" class="w-full h-auto block object-cover">
+            </div>
+        </section>
+
+        <!-- RSVP / ATTENDANCE CONFIRMATION SECTION -->
+        <section id="rsvp" class="py-14 px-6 bg-[#eae3dc] text-center reveal">
+            <div class="max-w-xs mx-auto space-y-6">
+                <!-- RSVP Ornament Image -->
+                <div class="flex items-center justify-center mb-3">
+                    <img src="images/rsvp-ornament.png" alt="RSVP Ornament" class="w-48 h-auto object-contain opacity-95">
+                </div>
+
+                <div class="space-y-2">
+                    <p class="text-sm text-olive/80 font-medium font-montserrat uppercase tracking-wider">RSVP</p>
+                    <div class="flex items-center justify-center pt-1">
+                        <img src="images/divider.png" alt="Divider" class="w-32 h-auto object-contain brightness-90 contrast-125">
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-1">
+                    <p class="text-sm text-olive/90 font-medium font-montserrat">Kindly confirm your attendance</p>
+                </div>
+
+                <!-- RSVP Form -->
+                <form id="rsvpForm" class="space-y-3.5 text-right" onsubmit="event.preventDefault(); alert('Thank you! Your response has been received.');">
+                    <div>
+                        <label class="block text-xs font-medium text-olive/80 mb-1.5 text-left">Your Full Name</label>
+                        <input type="text" required placeholder="Enter your name" class="w-full py-2.5 px-3.5 bg-white/60 border border-olive/30 rounded-xl text-sm text-olive focus:outline-none focus:border-olive font-montserrat">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-olive/80 mb-1.5 text-left">Will you attend?</label>
+                        <select class="w-full py-2.5 px-3 bg-white/60 border border-olive/30 rounded-xl text-sm text-olive focus:outline-none focus:border-olive font-montserrat">
+                            <option value="yes">Joyfully Accepts</option>
+                            <option value="no">Regretfully Declines</option>
+                        </select>
+                    </div>
+
+                    <!-- Guest Count Stepper (+ / -) -->
+                    <div>
+                        <label class="block text-xs font-medium text-olive/80 mb-1.5 text-left">Number of Guests</label>
+                        <div class="flex items-center justify-between bg-white/60 border border-olive/30 rounded-xl px-3 py-2">
+                            <button type="button" onclick="decrementGuests()" class="w-8 h-8 flex items-center justify-center text-olive font-bold text-lg bg-olive/10 hover:bg-olive/20 rounded-lg transition">-</button>
+                            <span id="guestCount" class="text-sm font-bold text-olive">1</span>
+                            <button type="button" onclick="incrementGuests()" class="w-8 h-8 flex items-center justify-center text-olive font-bold text-lg bg-olive/10 hover:bg-olive/20 rounded-lg transition">+</button>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" class="w-full py-3 px-6 bg-olive hover:bg-olive/90 text-white rounded-full text-center text-sm font-montserrat font-medium uppercase transition duration-300 shadow-sm">
+                            Confirm Attendance
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- CLOUDS & FINAL CLOSING SECTION -->
+        <section class="relative w-full py-20 px-6 text-center bg-[#eae3dc] flex flex-col items-center justify-center overflow-hidden reveal sm:rounded-b-[40px]">
+            <img src="images/clouds.png" alt="Clouds" class="absolute inset-0 w-full h-full object-cover opacity-90 pointer-events-none z-0">
+
+            <div class="relative z-10 space-y-3 max-w-xs mx-auto flex flex-col items-center">
+                <p class="text-2xl font-normal font-sloop text-olive pt-2">
+                    We look forward to celebrating with you
+                </p>
+
+                <div class="flex items-center justify-center py-1">
+                    <img src="images/divider.png" alt="Divider" class="w-32 h-auto object-contain brightness-90 contrast-125">
+                </div>
+
+                <p class="text-sm text-olive/90 font-medium font-montserrat uppercase tracking-wider">
+                    22 . 11 . 2026
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        const videoCover = document.getElementById('videoCover');
+        const posterImage = document.getElementById('posterImage');
+        const coverVideo = document.getElementById('coverVideo');
+        const sealClickArea = document.getElementById('sealClickArea');
+        const bgMusic = document.getElementById('bgMusic');
+        const heroVideo = document.getElementById('heroVideo');
+        const heroVerse = document.getElementById('heroVerse');
+        const heroSubtitle = document.getElementById('heroSubtitle');
+        const name1 = document.getElementById('name1');
+        const ampSign = document.getElementById('ampSign');
+        const name2 = document.getElementById('name2');
+
+        let audioContext = null;
+        let isAudioPlaying = false;
+
+        // Guest Count Stepper Logic
+        function incrementGuests() {
+            const countEl = document.getElementById('guestCount');
+            let current = parseInt(countEl.innerText);
+            if (current < 10) {
+                countEl.innerText = current + 1;
+            }
+        }
+
+        function decrementGuests() {
+            const countEl = document.getElementById('guestCount');
+            let current = parseInt(countEl.innerText);
+            if (current > 1) {
+                countEl.innerText = current - 1;
+            }
+        }
+
+        // Cross-browser Audio Unlocker using Web Audio API Context
+        function startAudio() {
+            if (isAudioPlaying) return;
+
+            if (!audioContext) {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (AudioCtx) {
+                    audioContext = new AudioCtx();
+                }
+            }
+
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            if (bgMusic) {
+                bgMusic.muted = false;
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isAudioPlaying = true;
+                    }).catch(err => {
+                        console.log("Autoplay blocked, waiting for next touch:", err);
+                    });
+                }
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (coverVideo) coverVideo.load();
+            if (bgMusic) bgMusic.load();
+            if (heroVideo) {
+                heroVideo.load();
+                const playPromise = heroVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        document.addEventListener('touchstart', () => {
+                            heroVideo.play();
+                        }, { once: true });
+                    });
+                }
+            }
+        });
+
+        function dismissCover() {
+            if (videoCover) {
+                videoCover.classList.add('fade-out');
+            }
+            // Trigger Hero Animations as soon as cover dismisses
+            if (heroVerse) heroVerse.classList.add('active');
+            if (heroSubtitle) heroSubtitle.classList.add('active');
+            if (name1) name1.classList.add('active');
+            if (ampSign) ampSign.classList.add('active');
+            if (name2) name2.classList.add('active');
+        }
+
+        let isInteractionHandled = false;
+
+        function handleUserInteraction(e) {
+            startAudio();
+
+            if (isInteractionHandled) return;
+            isInteractionHandled = true;
+
+            if (heroVideo && heroVideo.paused) {
+                heroVideo.play().catch(() => {});
+            }
+
+            if (coverVideo) {
+                coverVideo.classList.remove('hidden');
+                coverVideo.muted = false;
+
+                const playVideoPromise = coverVideo.play();
+                if (playVideoPromise !== undefined) {
+                    playVideoPromise.then(() => {
+                        posterImage.style.opacity = '0';
+                    }).catch(() => {
+                        dismissCover();
+                    });
+                } else {
+                    posterImage.style.opacity = '0';
+                }
+            }
+        }
+
+        const interactionEvents = ['touchstart', 'pointerdown', 'mousedown', 'click'];
+        
+        interactionEvents.forEach(eventType => {
+            sealClickArea.addEventListener(eventType, handleUserInteraction, { passive: true });
+        });
+
+        const globalUnlock = () => {
+            startAudio();
+            if (isAudioPlaying) {
+                interactionEvents.forEach(evt => document.removeEventListener(evt, globalUnlock));
+                document.removeEventListener('scroll', globalUnlock);
+            }
+        };
+
+        interactionEvents.forEach(evt => document.addEventListener(evt, globalUnlock, { passive: true }));
+        document.addEventListener('scroll', globalUnlock, { passive: true });
+
+        if (coverVideo) {
+            coverVideo.addEventListener('ended', dismissCover);
+        }
+
+        // Scroll Reveal Observer for other sections
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => observer.observe(el));
+
+        // Countdown Timer Logic (November 22, 2026)
+        const eventDate = new Date('November 22, 2026 19:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = eventDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = String(days).padStart(2, '0');
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Calendar Direct Link (November 22, 2026)
+        const calTitle = encodeURIComponent("Wedding Celebration: Ibrahim & Hoda");
+        const calDetails = encodeURIComponent("We are delighted to invite you to celebrate our wedding at Fairmont Palm Dubai.");
+        const calLocation = encodeURIComponent("Fairmont Palm Dubai");
+        document.getElementById('addToCalendar').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&dates=20261122T150000Z/20261122T190000Z&details=${calDetails}&location=${calLocation}`;
+    </script>
+</body>
+</html>
